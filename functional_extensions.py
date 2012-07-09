@@ -5,15 +5,16 @@ def merge_with(func, *dictionaries):
     from the latter (left-to-right) will be combined with the mapping in
     the result by calling (f val-in-result val-in-latter).
     >>> merge_with(min, {'k': 1}, {'k': 2}, {'k':3, 'y':'z'})
-    {'k': 1, 'y':'z'}
+    {'y': 'z', 'k': 1}
     """
-    main_dict = {}
+    dd = {}
     for d in dictionaries:
         for item in d.items():
-            if item[0] in main_dict:
-                main_dict[item[0]] = funct(main_dict[item[0]], item[1])
+            if item[0] in dd:
+                dd[item[0]] = func(dd[item[0]], item[1])
             else:
-                main_dict[item[0]] = item[1]
+                dd[item[0]] = item[1]
+    return dd
 
 def only(keys, dictionary):
     """ 
