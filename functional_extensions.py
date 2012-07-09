@@ -1,3 +1,22 @@
+def uniq(strings):
+    """
+    Returns a list of strings passed through set
+    >>> uniq(['k', 'k', 'j'])
+    ['k', 'j']
+    >>> uniq([{'what': 'other'}, {'what': 'other'}])
+    Traceback (most recent call last):
+    TypeError: unhashable type: 'dict'
+    """
+    return list(set(strings))
+
+def exclude(keys, items):
+    """
+    Returns a new list excluding the keys passed in
+    >>> exclude(['bad'], ['bad','good'])
+    ['good']
+    """
+    return [f for f in items if f not in keys]
+
 def merge_with(func, *dictionaries):
     """
     Returns a map that consists of the rest of the maps conj-ed onto
@@ -22,10 +41,11 @@ def only(keys, dictionary):
     >>> only(['start','end'], {'start': 0, 'middle': 1, 'end': 2})
     {'start': 0, 'end': 2}
     >>> only(['infinity','end'], {'start': 0, 'middle': 1, 'end': 2})
-    Traceback (most recent call last):
-    KeyError: 'infinity'
+    {'end': 2}
+    >>> only(['infinity'], {'start': 0, 'middle': 1, 'end': 2})
+    {}
     """
-    return {k: dictionary[k] for k in keys}
+    return {k: dictionary[k] for k in keys if k in dictionary.keys()}
 
 def force_ints(dictionary):
     """
