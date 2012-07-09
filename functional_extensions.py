@@ -1,3 +1,20 @@
+def merge_with(func, *dictionaries):
+    """
+    Returns a map that consists of the rest of the maps conj-ed onto
+    the first.  If a key occurs in more than one map, the mapping(s)
+    from the latter (left-to-right) will be combined with the mapping in
+    the result by calling (f val-in-result val-in-latter).
+    >>> merge_with(min, {'k': 1}, {'k': 2}, {'k':3, 'y':'z'})
+    {'k': 1, 'y':'z'}
+    """
+    main_dict = {}
+    for d in dictionaries:
+        for item in d.items():
+            if item[0] in main_dict:
+                main_dict[item[0]] = funct(main_dict[item[0]], item[1])
+            else:
+                main_dict[item[0]] = item[1]
+
 def only(keys, dictionary):
     """ 
     >>> only(['start','end'], {'start': 0, 'middle': 1, 'end': 2})
