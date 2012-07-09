@@ -17,6 +17,7 @@ def merge_with(func, *dictionaries):
 
 def only(keys, dictionary):
     """ 
+    Returns only the items from dictionary with keys in keys
     >>> only(['start','end'], {'start': 0, 'middle': 1, 'end': 2})
     {'start': 0, 'end': 2}
     >>> only(['infinity','end'], {'start': 0, 'middle': 1, 'end': 2})
@@ -27,6 +28,7 @@ def only(keys, dictionary):
 
 def force_ints(dictionary):
     """
+    Call int() on all values of dictionary
        >>> force_ints({'start': '0', 'end' : 2})
        {'start': 0, 'end': 2}
        >>> force_ints({'start': '0', 'end' : 'word' })
@@ -37,6 +39,8 @@ def force_ints(dictionary):
 
 def filter_none(dictionary):
     """
+    Returns items in dictionary with a value other than None
+    
        >>> filter_none({'start':0, 'middle': None}) 
        {'start': 0}
     """
@@ -45,6 +49,7 @@ def filter_none(dictionary):
 
 def update_if_none(dictionary, update):
     """
+    Update or remove all items in dictionary with a value
         >>> update_if_none({'start': 0, 'middle': None}, {'start': 1, 'middle': 2})
         {'start': 0, 'middle': 2}
     """
