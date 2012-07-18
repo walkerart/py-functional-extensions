@@ -1,3 +1,25 @@
+# test comment
+
+def vformat(dictionary, *args, **kwargs):
+    """
+    Returns an new dictionary with its string values 
+    formated with args and kwargs.
+    It will drill down to find strings if dictionaries are nested.
+    >>> vformat({'the': 'end{}'}, '?')
+    {'the': 'end?'}
+    >>> vformat({'the': 'beg{ex}'}, ex='!')
+    {'the': 'beg!'}
+    >>> vformat({'the': {'nested_dict': 'beggining{ex}'}}, ex='!')
+    {'the': {'nested_dict': 'beggining!'}}
+    >>> vformat({'the': True})
+    {'the': True}
+    """
+    def typed_drill_down(v):
+        return vformat(v, *args, **kwargs) if type(v) == dict else v
+    def drill_down(v):
+        return v.format(*args, **kwargs) if hasattr(v,'format') else typed_drill_down(v)
+    return {k: drill_down(v) for k,v in dictionary.items()}
+
 def uniq(strings):
     """
     Returns a list of strings passed through set
