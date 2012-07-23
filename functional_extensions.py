@@ -30,13 +30,21 @@ def uniq(strings):
     """
     return list(set(strings))
 
-def exclude(keys, items):
+def exclude(keys, item):
     """
     Returns a new list excluding the keys passed in
     >>> exclude(['bad'], ['bad','good'])
     ['good']
+    >>> exclude(['bad'], {'bad': False, 'good': True})
+    {'good': True}
     """
-    return [f for f in items if f not in keys]
+    if type(item) == dict:
+        ok_keys = [key for key in item.keys() if key not in keys]
+        return only(ok_keys,item)
+    elif iter(item):
+        return [f for f in item if f not in keys]
+    else:
+        raise Exception('unable to handle type {}'.format(type(item)))
 
 def merge_with(func, *dictionaries):
     """
